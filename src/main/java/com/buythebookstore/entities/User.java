@@ -29,6 +29,12 @@ public class User {
     @Size(min = 3, max = 50, message = "Surname length should be between 3 and 50.")
     private String surname;
 
+    @Column(name = "email", unique = true)
+    @Email(message = "Wrong email format!")
+    @NotEmpty
+    @NotBlank(message = "Email can not be empty!")
+    private String email;
+
     @Column(name = "password")
     @NotEmpty
     @NotBlank(message = "Password can not be empty!")
@@ -40,8 +46,5 @@ public class User {
     @Size(min = 6, max = 10, message = "Password length should be between 6-10.")
     private String passwordCheck;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
 }

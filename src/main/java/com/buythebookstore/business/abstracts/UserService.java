@@ -1,7 +1,7 @@
 package com.buythebookstore.business.abstracts;
 
-import com.buythebookstore.core.DataResult;
-import com.buythebookstore.core.Result;
+import com.buythebookstore.core.results.DataResult;
+import com.buythebookstore.core.results.Result;
 import com.buythebookstore.entities.User;
 import com.buythebookstore.entities.dtos.UserDto;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserService {
 
-    public Result create(User staff);
+    public Result add(UserDto userDto);
 
     public DataResult<List<User>> getAll();
 
