@@ -1,4 +1,4 @@
-package com.buythebookstore.core;
+package com.buythebookstore.core.results;
 
 public class SuccessDataResult<T> extends DataResult<T> {
 
