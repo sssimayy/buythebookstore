@@ -31,14 +31,14 @@ public class OrderController {
 
     @PostMapping("/add")
     public ResponseEntity<?> create(@RequestBody Order order) {
-        Result result = this.orderService.create(order);
+        Result result = this.orderService.add(order);
         if (result.isSuccess()) {
             return ResponseEntity.ok(result);
         }
         return ResponseEntity.badRequest().body(result);
     }
 
-    @PutMapping("/update")
+    /*@PutMapping("/update")
     public ResponseEntity<?> update(OrderDto orderDto) {
         Result result = this.orderService.update(orderDto);
         if (result.isSuccess()) {
@@ -57,5 +57,5 @@ public class OrderController {
         }
 
         return new ResponseEntity<>(id, HttpStatus.OK);
-    }
+    }*/
 }
