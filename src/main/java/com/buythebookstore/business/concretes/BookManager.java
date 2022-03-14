@@ -1,7 +1,7 @@
 package com.buythebookstore.business.concretes;
 
 import com.buythebookstore.business.abstracts.BookService;
-import com.buythebookstore.core.*;
+import com.buythebookstore.core.results.*;
 import com.buythebookstore.dataAccess.BookDao;
 import com.buythebookstore.entities.Book;
 import com.buythebookstore.entities.dtos.BookDto;
@@ -24,7 +24,7 @@ public class BookManager implements BookService {
 
 
     @Override
-    public Result create(Book book) {
+    public Result add(Book book) {
         if (book.getBookName().length() <= 1) {
             return new ErrorResult("Book name must be longer than 1 characters");
 

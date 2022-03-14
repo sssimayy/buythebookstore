@@ -30,8 +30,8 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> create(@RequestBody Book book) {
-        Result result = this.bookService.create(book);
+    public ResponseEntity<?> add(@RequestBody Book book) {
+        Result result = this.bookService.add(book);
         if (result.isSuccess()) {
             return ResponseEntity.ok(result);
         }

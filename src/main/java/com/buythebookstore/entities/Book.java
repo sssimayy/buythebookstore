@@ -32,4 +32,8 @@ public class Book {
     @NotBlank(message = "Book price cannot be empty.")
     @Column(name = "bookPrice", nullable = false)
     private String bookPrice;
+
+    @ManyToOne()
+    @JoinColumn(name = "order_id")
+    private Order order;
 }
