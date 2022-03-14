@@ -1,8 +1,8 @@
 package com.buythebookstore.controllers;
 
 import com.buythebookstore.business.abstracts.OrderService;
-import com.buythebookstore.core.DataResult;
-import com.buythebookstore.core.Result;
+import com.buythebookstore.core.results.DataResult;
+import com.buythebookstore.core.results.Result;
 import com.buythebookstore.entities.Order;
 import com.buythebookstore.entities.dtos.OrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
