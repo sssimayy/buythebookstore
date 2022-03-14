@@ -17,14 +17,13 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
     @NotBlank(message = "Order number cannot be empty.")
     @Column(name = "orderNumber", nullable = false)
     private String orderNumber;
 
-    @OneToMany(mappedBy = "order")
-    private List<User> user;
+    @OneToMany(mappedBy = "cv")
+    private List<Book> books;
 
 }

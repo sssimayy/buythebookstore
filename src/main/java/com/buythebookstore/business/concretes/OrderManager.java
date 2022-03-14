@@ -1,27 +1,42 @@
 package com.buythebookstore.business.concretes;
 
 import com.buythebookstore.business.abstracts.OrderService;
-import com.buythebookstore.core.DataResult;
-import com.buythebookstore.core.Result;
+import com.buythebookstore.core.results.DataResult;
+import com.buythebookstore.core.results.ErrorDataResult;
+import com.buythebookstore.core.results.SuccessDataResult;
+import com.buythebookstore.dataAccess.OrderDao;
 import com.buythebookstore.entities.Order;
-import com.buythebookstore.entities.dtos.OrderDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class OrderManager implements OrderService {
+
+    OrderDao orderDao;
+
+    @Autowired
+    public OrderManager(OrderDao orderDao) {
+        this.orderDao = orderDao;
+    }
+
     @Override
-    public Result create(Order staff) {
-        return null;
+    public DataResult<Order> add(Order order) {
+        if (!this.orderDao.existsById(order.getId())) {
+            return new ErrorDataResult<>(order, "Order does not exist");
+        } else {
+            this.orderDao.save(order);
+            return new SuccessDataResult<>("Order has been created.");
+        }
     }
 
     @Override
     public DataResult<List<Order>> getAll() {
-        return null;
+        return new SuccessDataResult<List<Order>>(this.orderDao.findAll());
     }
 
-    @Override
+    /*@Override
     public Result update(OrderDto orderUpdateDto) {
         return null;
     }
@@ -29,5 +44,5 @@ public class OrderManager implements OrderService {
     @Override
     public boolean delete(Long id) {
         return false;
-    }
+    }*/
 }
