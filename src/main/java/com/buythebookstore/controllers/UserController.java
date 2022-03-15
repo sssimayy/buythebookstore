@@ -38,7 +38,8 @@ public class UserController {
         }
         return ResponseEntity.badRequest().body(result);
     }
-
+    //TODO: İhtiyaca göre kullanılabilir.
+/*
     @PutMapping("/update")
     public ResponseEntity<?> update(UserDto userDto) {
         Result result = this.userService.update(userDto);
@@ -58,5 +59,5 @@ public class UserController {
         }
 
         return new ResponseEntity<>(id, HttpStatus.OK);
-    }
+    }*/
 }

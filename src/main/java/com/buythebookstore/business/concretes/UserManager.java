@@ -56,8 +56,8 @@ public class UserManager implements UserService {
     public DataResult<List<User>> getAll() {
         return new SuccessDataResult<>(userDao.findAll(), "Data is listed successfully");
     }
-
-    @Override
+//TODO: İhtiyaca göre kullanılabilir
+    /*@Override
     public Result update(UserDto userDto) {
         if (!this.userDao.existsById(userDto.getUserId())) {
             return new ErrorResult("No such a user");
@@ -81,7 +81,7 @@ public class UserManager implements UserService {
     public boolean delete(Long id) {
         return false;
     }
-
+*/
 
     public static boolean isValid(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +

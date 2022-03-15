@@ -13,7 +13,7 @@ public interface UserService {
 
     public DataResult<List<User>> getAll();
 
-    public Result update(UserDto userUpdateDto);
+    //public Result update(UserDto userUpdateDto);
 
-    boolean delete(Long id);
+    //boolean delete(Long id);
 }
