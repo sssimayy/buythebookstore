@@ -19,14 +19,12 @@ import java.util.regex.Pattern;
 public class UserManager implements UserService {
 
     private UserDao userDao;
-    private UserService userService;
     private EmailCheck emailCheck;
     private ConfirmPasswordCheck confirmPasswordCheck;
 
     @Autowired
-    public UserManager(UserDao userDao, UserService userService, EmailCheck emailCheck, ConfirmPasswordCheck confirmPasswordCheck) {
+    public UserManager(UserDao userDao, EmailCheck emailCheck, ConfirmPasswordCheck confirmPasswordCheck) {
         this.userDao = userDao;
-        this.userService = userService;
         this.emailCheck = emailCheck;
         this.confirmPasswordCheck = confirmPasswordCheck;
     }
