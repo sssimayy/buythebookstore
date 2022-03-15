@@ -33,7 +33,9 @@ public class Book {
     @Column(name = "bookPrice", nullable = false)
     private String bookPrice;
 
-    @ManyToOne()
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @OneToOne
+    private OrderDetail orderDetail;
+
+    @OneToOne
+    private Kind kind;
 }

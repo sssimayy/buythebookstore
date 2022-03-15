@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BookService {
 
-    public Result add(Book book);
+    public Result add(BookDto book);
 
     public DataResult<List<Book>> getAll();
 

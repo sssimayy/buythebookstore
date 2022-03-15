@@ -14,42 +14,45 @@ import java.util.List;
 public class BookManager implements BookService {
 
     private BookDao bookDao;
-    private BookService bookService;
 
     @Autowired
-    public BookManager(BookDao bookDao, BookService bookService) {
+    public BookManager(BookDao bookDao) {
         this.bookDao = bookDao;
-        this.bookService = bookService;
     }
 
 
     @Override
-    public Result add(Book book) {
-        if (book.getBookName().length() <= 1) {
+    public Result add(BookDto reqDTO) {
+        if (reqDTO.getBookName().length() <= 1) {
             return new ErrorResult("Book name must be longer than 1 characters");
 
         }
+        Book book = new Book();
+        book.setBookNumber(reqDTO.getBookNumber());
+        book.setBookName(reqDTO.getBookName());
+        book.setBookPrice(reqDTO.getBookPrice());
+
         bookDao.save(book);
         return new SuccessResult("Success!");
     }
 
     @Override
     public DataResult<List<Book>> getAll() {
-        return new SuccessDataResult<List<Book>>(this.bookDao.findAll(),"Data has been listed");
+        return new SuccessDataResult<List<Book>>(this.bookDao.findAll(), "Data has been listed");
     }
 
     @Override
     public Result update(BookDto bookDto) {
-        if(!this.bookDao.existsById(bookDto.getBookId())){
+        if (!this.bookDao.existsById(bookDto.getBookId())) {
             return new ErrorResult("There is no such book!");
-        }else if(bookDto.getBookName().length()<1){
+        } else if (bookDto.getBookName().length() < 1) {
             return new ErrorResult("Name cannot be shorter than 1 characters");
-        }else if(bookDto.getBookNumber().length()<0){
+        } else if (bookDto.getBookNumber().length() < 0) {
             return new ErrorResult("The number of books cannot be less than 0");
-        }else if(bookDto.getBookPrice().length()<0) {
+        } else if (bookDto.getBookPrice().length() < 0) {
             return new ErrorResult("The book price cannot be less than 0");
         }
-        Book book=this.bookDao.getById(bookDto.getBookId());
+        Book book = this.bookDao.getById(bookDto.getBookId());
         book.setBookName(bookDto.getBookName());
         book.setBookPrice(bookDto.getBookPrice());
         book.setBookNumber(bookDto.getBookNumber());
