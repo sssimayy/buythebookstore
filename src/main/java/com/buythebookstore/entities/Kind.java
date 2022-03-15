@@ -24,5 +24,4 @@ public class Kind {
     @OneToOne
     private Book book;
 
-
 }
