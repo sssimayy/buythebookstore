@@ -5,6 +5,7 @@ import com.buythebookstore.core.results.DataResult;
 import com.buythebookstore.core.results.Result;
 import com.buythebookstore.entities.User;
 import com.buythebookstore.entities.dtos.UserDto;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +39,8 @@ public class UserController {
         }
         return ResponseEntity.badRequest().body(result);
     }
-
-    @PutMapping("/update")
+   //TODO: İhtiyaca göre kullanılabilir.
+    /*@PutMapping("/update")
     public ResponseEntity<?> update(UserDto userDto) {
         Result result = this.userService.update(userDto);
         if (result.isSuccess()) {
@@ -58,5 +59,5 @@ public class UserController {
         }
 
         return new ResponseEntity<>(id, HttpStatus.OK);
-    }
+    }*/
 }
