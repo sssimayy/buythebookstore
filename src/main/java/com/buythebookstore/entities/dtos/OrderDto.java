@@ -2,11 +2,10 @@ package com.buythebookstore.entities.dtos;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 public class OrderDto {
 
-    @NotBlank
-    private String orderNumber;
+    private List<OrderDetailDto> orderDetails;
 }

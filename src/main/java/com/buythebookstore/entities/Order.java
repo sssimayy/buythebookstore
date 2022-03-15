@@ -12,18 +12,18 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @NotBlank(message = "Order number cannot be empty.")
     @Column(name = "orderNumber", nullable = false)
     private String orderNumber;
 
-    @OneToMany(mappedBy = "cv")
-    private List<Book> books;
-
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
+    private List<OrderDetail> orderDetails;
 }

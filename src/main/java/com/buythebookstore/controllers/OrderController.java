@@ -30,7 +30,7 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> create(@RequestBody Order order) {
+    public ResponseEntity<?> create(@RequestBody OrderDto order) {
         Result result = this.orderService.add(order);
         if (result.isSuccess()) {
             return ResponseEntity.ok(result);
