@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,10 +19,10 @@ public class Kind {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "userName")
+    @Column(name = "kind")
     private String kind;
 
-    @OneToOne
-    private Book book;
+    @OneToMany(mappedBy = "kind", cascade = CascadeType.REMOVE)
+    private List<Book> bookList;
 
 }

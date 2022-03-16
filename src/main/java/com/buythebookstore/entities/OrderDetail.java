@@ -22,5 +22,5 @@ public class OrderDetail {
     @ManyToOne
     private Order order;
 
-    private int number;
+    private int number; //number of sell
 }

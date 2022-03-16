@@ -4,6 +4,7 @@ import com.buythebookstore.business.abstracts.BookService;
 import com.buythebookstore.core.results.DataResult;
 import com.buythebookstore.core.results.Result;
 import com.buythebookstore.entities.Book;
+import com.buythebookstore.entities.dtos.BookAddDto;
 import com.buythebookstore.entities.dtos.BookDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@RequestBody BookDto book) {
+    public ResponseEntity<?> add(@RequestBody BookAddDto book) {
         Result result = this.bookService.add(book);
         if (result.isSuccess()) {
             return ResponseEntity.ok(result);
@@ -48,14 +49,13 @@ public class BookController {
     }
 
     @DeleteMapping(value = "/book/{id}")
-    public ResponseEntity<Long> deletePost(@PathVariable Long id) {
+    public Boolean deletePost(@PathVariable int id) {
 
-        var isRemoved = bookService.delete(id);
+       return this.bookService.delete(id);
+    }
 
-        if (!isRemoved ) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(id, HttpStatus.OK);
+    @GetMapping("/recommendation/{id}")
+    public DataResult<List<Book>> getRecommendedBooks(@PathVariable int id) {
+        return this.bookService.getRecommendation(id);
     }
 }

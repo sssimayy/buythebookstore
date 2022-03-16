@@ -3,7 +3,9 @@ package com.buythebookstore.business.concretes;
 import com.buythebookstore.business.abstracts.BookService;
 import com.buythebookstore.core.results.*;
 import com.buythebookstore.dataAccess.BookDao;
+import com.buythebookstore.dataAccess.KindDao;
 import com.buythebookstore.entities.Book;
+import com.buythebookstore.entities.dtos.BookAddDto;
 import com.buythebookstore.entities.dtos.BookDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +16,16 @@ import java.util.List;
 public class BookManager implements BookService {
 
     private BookDao bookDao;
+    private KindDao kindDao;
 
     @Autowired
-    public BookManager(BookDao bookDao) {
+    public BookManager(BookDao bookDao, KindDao kindDao) {
         this.bookDao = bookDao;
+        this.kindDao = kindDao;
     }
 
-
     @Override
-    public Result add(BookDto reqDTO) {
+    public Result add(BookAddDto reqDTO) {
         if (reqDTO.getBookName().length() <= 1) {
             return new ErrorResult("Book name must be longer than 1 characters");
 
@@ -31,6 +34,7 @@ public class BookManager implements BookService {
         book.setBookNumber(reqDTO.getBookNumber());
         book.setBookName(reqDTO.getBookName());
         book.setBookPrice(reqDTO.getBookPrice());
+        book.setKind(kindDao.getById(reqDTO.getKindId()));
 
         bookDao.save(book);
         return new SuccessResult("Success!");
@@ -61,7 +65,18 @@ public class BookManager implements BookService {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(int id) {
+       bookDao.deleteById(id);
         return false;
+    }
+
+    @Override
+    public DataResult<List<Book>> getRecommendation(int id) {
+        Book book = this.bookDao.getById(id);
+
+        String kind= book.getKind().getKind();
+        List<BookDto> bookDtoList= bookDao.findAllByKindOrderByNumberDesc(kind);
+
+        return null;
     }
 }

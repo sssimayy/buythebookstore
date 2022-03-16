@@ -36,6 +36,7 @@ public class Book {
     @OneToOne
     private OrderDetail orderDetail;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "kind_id")
     private Kind kind;
 }
