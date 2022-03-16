@@ -82,7 +82,6 @@ public class UserManager implements UserService {
         return false;
     }
 */
-
     public static boolean isValid(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
