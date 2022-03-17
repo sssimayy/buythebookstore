@@ -1,5 +1,6 @@
 package com.buythebookstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,12 +8,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "book")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "orderDetail"})
 public class Book {
 
     @Id
@@ -33,8 +36,8 @@ public class Book {
     @Column(name = "bookPrice", nullable = false)
     private String bookPrice;
 
-    @OneToOne
-    private OrderDetail orderDetail;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
+    private List<OrderDetail> orderDetail;
 
     @ManyToOne
     @JoinColumn(name = "kind_id")

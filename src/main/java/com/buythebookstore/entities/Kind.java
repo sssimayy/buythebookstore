@@ -1,5 +1,6 @@
 package com.buythebookstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "kinds")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "books"})
 public class Kind {
 
     @Id
@@ -23,6 +25,6 @@ public class Kind {
     private String kind;
 
     @OneToMany(mappedBy = "kind", cascade = CascadeType.REMOVE)
-    private List<Book> bookList;
-
+    private List<Book> books;
 }
+
