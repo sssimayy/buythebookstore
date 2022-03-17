@@ -56,7 +56,8 @@ public class UserManager implements UserService {
     public DataResult<List<User>> getAll() {
         return new SuccessDataResult<>(userDao.findAll(), "Data is listed successfully");
     }
-//TODO: İhtiyaca göre kullanılabilir
+
+    //TODO: İhtiyaca göre kullanılabilir
     /*@Override
     public Result update(UserDto userDto) {
         if (!this.userDao.existsById(userDto.getUserId())) {

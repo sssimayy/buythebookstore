@@ -6,7 +6,6 @@ import com.buythebookstore.core.results.Result;
 import com.buythebookstore.entities.User;
 import com.buythebookstore.entities.dtos.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
