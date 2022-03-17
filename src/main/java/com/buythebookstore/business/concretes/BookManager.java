@@ -4,24 +4,29 @@ import com.buythebookstore.business.abstracts.BookService;
 import com.buythebookstore.core.results.*;
 import com.buythebookstore.dataAccess.BookDao;
 import com.buythebookstore.dataAccess.KindDao;
+import com.buythebookstore.dataAccess.OrderDetailDao;
 import com.buythebookstore.entities.Book;
 import com.buythebookstore.entities.dtos.BookAddDto;
 import com.buythebookstore.entities.dtos.BookDto;
+import com.buythebookstore.entities.dtos.BookRecommendationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class BookManager implements BookService {
 
-    private BookDao bookDao;
-    private KindDao kindDao;
+    private final BookDao bookDao;
+    private final KindDao kindDao;
+    private final OrderDetailDao orderDetailDao;
 
     @Autowired
-    public BookManager(BookDao bookDao, KindDao kindDao) {
+    public BookManager(BookDao bookDao, KindDao kindDao, OrderDetailDao orderDetailDao) {
         this.bookDao = bookDao;
         this.kindDao = kindDao;
+        this.orderDetailDao = orderDetailDao;
     }
 
     @Override
@@ -42,7 +47,7 @@ public class BookManager implements BookService {
 
     @Override
     public DataResult<List<Book>> getAll() {
-        return new SuccessDataResult<List<Book>>(this.bookDao.findAll(), "Data has been listed");
+        return new SuccessDataResult<>(this.bookDao.findAll(), "Data has been listed");
     }
 
     @Override
@@ -66,17 +71,24 @@ public class BookManager implements BookService {
 
     @Override
     public boolean delete(int id) {
-       bookDao.deleteById(id);
+        bookDao.deleteById(id);
         return false;
     }
 
     @Override
-    public DataResult<List<Book>> getRecommendation(int id) {
+    public DataResult<List<BookRecommendationDto>> getRecommendation(int id) {
         Book book = this.bookDao.getById(id);
 
-        String kind= book.getKind().getKind();
-        List<BookDto> bookDtoList= bookDao.findAllByKindOrderByNumberDesc(kind);
+        String kind = book.getKind().getKind();
+        List<BookRecommendationDto> bookDtoList = bookDao.findAllByKind(kind);
 
-        return null;
+        for (BookRecommendationDto bookRecommendationDtoItem : bookDtoList) {
+            Integer totalSell = orderDetailDao.getTotalSellNumberByBookId(bookRecommendationDtoItem.getBookId());
+            bookRecommendationDtoItem.setTotalSell(totalSell == null ? 0 : totalSell);
+        }
+
+        Collections.sort(bookDtoList);
+
+        return new SuccessDataResult<>(bookDtoList, "Data has been listed");
     }
 }
