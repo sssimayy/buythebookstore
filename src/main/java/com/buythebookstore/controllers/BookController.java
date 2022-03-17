@@ -6,8 +6,8 @@ import com.buythebookstore.core.results.Result;
 import com.buythebookstore.entities.Book;
 import com.buythebookstore.entities.dtos.BookAddDto;
 import com.buythebookstore.entities.dtos.BookDto;
+import com.buythebookstore.entities.dtos.BookRecommendationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,11 +51,11 @@ public class BookController {
     @DeleteMapping(value = "/book/{id}")
     public Boolean deletePost(@PathVariable int id) {
 
-       return this.bookService.delete(id);
+        return this.bookService.delete(id);
     }
 
     @GetMapping("/recommendation/{id}")
-    public DataResult<List<Book>> getRecommendedBooks(@PathVariable int id) {
+    public DataResult<List<BookRecommendationDto>> getRecommendedBooks(@PathVariable int id) {
         return this.bookService.getRecommendation(id);
     }
 }
